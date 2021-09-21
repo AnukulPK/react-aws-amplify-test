@@ -10,6 +10,11 @@
       "StackName": "amplify-reactawsamplifytest-dev-145256",
       "StackId": "arn:aws:cloudformation:ap-south-1:826091750342:stack/amplify-reactawsamplifytest-dev-145256/8573c260-1abd-11ec-b6e6-0242ab465700",
       "AmplifyAppId": "d3cila028zx85k"
+    },
+    "categories": {
+      "auth": {
+        "reactawsamplifytest9e10c811": {}
+      }
     }
   }
 }
