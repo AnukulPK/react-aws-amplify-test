@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { withAuthenticator } from 'aws-amplify-react';
-import { API, graphqlOperation } from 'aws-amplify';
+import { API, graphqlOperation, Auth } from 'aws-amplify';
 import { createNote, deleteNote, updateNote } from './graphql/mutations';
 import { listNotes } from './graphql/queries';
 import {
@@ -15,8 +15,9 @@ function App() {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
+    const owner = Auth.user.getUsername();
     getNotes();
-    API.graphql(graphqlOperation(onCreateNote)).subscribe({
+    API.graphql(graphqlOperation(onCreateNote, { owner })).subscribe({
       next: (noteData) => {
         const newNote = noteData.value.data.onCreateNote;
         const prevNotes = notes.filter((note) => note.id !== newNote.id);
@@ -26,7 +27,7 @@ function App() {
       },
     });
 
-    API.graphql(graphqlOperation(onDeleteNote)).subscribe({
+    API.graphql(graphqlOperation(onDeleteNote, { owner })).subscribe({
       next: (noteData) => {
         const deletedNote = noteData.value.data.deleteNote;
         const updatedNotes = notes.filter((note) => note.id !== deletedNote.id);
@@ -35,7 +36,7 @@ function App() {
       },
     });
 
-    API.graphql(graphqlOperation(onUpdateNote)).subscribe({
+    API.graphql(graphqlOperation(onUpdateNote, { owner })).subscribe({
       next: (noteData) => {
         const updatedNote = noteData.value.data.onUpdateNote;
         const index = notes.findIndex((note) => note.id === updatedNote.id);
