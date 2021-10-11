@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { withAuthenticator } from 'aws-amplify-react';
+import { withAuthenticator, AmplifyTheme } from 'aws-amplify-react';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import { createNote, deleteNote, updateNote } from './graphql/mutations';
 import { listNotes } from './graphql/queries';
@@ -179,4 +179,20 @@ function App() {
   );
 }
 
-export default withAuthenticator(App, { includeGreetings: true });
+const theme = {
+  ...AmplifyTheme,
+  navBar: {
+    ...AmplifyTheme.navBar,
+    backgroundColor: '#ff5771',
+  },
+  button: {
+    ...AmplifyTheme.button,
+    backgroundColor: '#ff5771',
+  },
+  sectionHeader: {
+    ...AmplifyTheme.sectionHeader,
+    backgroundColor: '#ff5771',
+  },
+};
+
+export default withAuthenticator(App, true, [], null, theme);
