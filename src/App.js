@@ -195,4 +195,9 @@ const theme = {
   },
 };
 
-export default withAuthenticator(App, true, [], null, theme);
+export default withAuthenticator(App, {
+  theme,
+  signUpConfig: {
+    hiddenDefaults: ['phone_number'],
+  },
+});
